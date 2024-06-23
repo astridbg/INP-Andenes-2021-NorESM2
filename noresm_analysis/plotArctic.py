@@ -15,7 +15,9 @@ from shapely.geometry.polygon import LinearRing
 import matplotlib.patches as mpatches
 import functions
 
-wpath="/projects/NS9600K/astridbg/INP-Andenes-2021-NorESM2/figures/"
+homepath = "/home/astridbg/Documents/nird/" # Change to suitable path
+
+wpath = homepath+"INP-Andenes-2021-NorESM2/figures/"
 
 #------------------------------
 # Squares to plot

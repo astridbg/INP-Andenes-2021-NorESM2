@@ -13,8 +13,9 @@ import re
 # into an easier format, consistent across 
 # different stations
 
+homepath="/home/astridbg/Documents/nird/" # Change to suitable path
 
-data_path = "/home/astridbg/Documents/data/stations/"
+data_path = homepath+"observational_data/stations/"
 #station_path = "ALE_basic_rad_2004-2014/datasets/"
 station_path = "BAR_radiation_1992-01_etseq/datasets/"
 #station_path = "NYA_radiation_2006-05_etseq/datasets/"

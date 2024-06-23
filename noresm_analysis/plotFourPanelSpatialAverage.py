@@ -12,8 +12,10 @@ plt.rcParams.update({'font.size':18})
 import datetime
 from functions import *
 
-rpath="/projects/NS9600K/astridbg/model_data/noresm_postprocessed/"
-wpath="/projects/NS9600K/astridbg/INP-Andenes-2021-NorESM2/figures/"
+homepath = "/home/astridbg/Documents/nird/" # Change to suitable path
+
+rpath=homepath+"/model_data/noresm_postprocessed/"
+wpath=homepath+"INP-Andenes-2021-NorESM2/figures/"
 
 # Default cases----------------
 case1 = "meyers92_20220210"; case1nm = "M92"

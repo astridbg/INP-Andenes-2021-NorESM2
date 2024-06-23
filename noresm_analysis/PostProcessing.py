@@ -4,8 +4,10 @@ import numpy as np
 import glob
 import functions
 
-rpath="/home/astridbg/Documents/nird/model_data/noresm_output/"
-wpath="/home/astridbg/Documents/nird/model_data/noresm_postprocessed/"
+homepath="/home/astridbg/Documents/nird/"
+
+rpath=homepath+"model_data/noresm_output/"
+wpath=homepath+"model_data/noresm_postprocessed/"
 
 case = "meyers92_20220210"
 #case = "andenes21_20220222"
@@ -42,7 +44,6 @@ date = "2007-04-15_2010-03-15"
 
 # For cases meyers92 and andenes21
 variables = ["OCNFRAC","FREQI","NUMICE","LWCFS","SWCFS","NETCFS","CLDTOT","TGCLDIWP","TGCLDLWP","TREFHT","FSNT","FSNTC","FSNTOA","FSNTOAC","FSUTOA", "FLNT", "FLNTC", "FLUT", "FLUTC"]
-variables = ['OCNFRAC']
 
 for var in variables:
     print("Started writing variable:")

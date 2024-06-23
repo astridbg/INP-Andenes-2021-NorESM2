@@ -10,12 +10,14 @@ plt.rcParams.update({'font.size':20})
 # ------------------------------------------------
 from functions import *
 
+homepath="/home/astridbg/Documents/nird/" # Change to suitable path
+
 # Paths to data
-ceres_path = "/projects/NS9600K/astridbg/data/observations/radiation/CERES_EBAF_Ed4.2_Subset_200704-201003.nc"
-noresm_path = "/projects/NS9600K/astridbg/data/model/noresm_postprocessed/"
+ceres_path = "/projects/NS9600K/astridbg/observational_data/radiation/CERES_EBAF_Ed4.2_Subset_200704-201003.nc" # Data must be downloaded from https://search.earthdata.nasa.gov/
+noresm_path = homepath+"model_data/noresm_postprocessed/"
 
 # Paths to figures
-fig_path = "/projects/NS9600K/astridbg/INP-atm-present/figures/radiation_comparison/ceres_comparison/"
+fig_path = homepath+"INP-Andenes-2021-NorESM2/figures/"
 
 #-------------------------------------
 # CERES Uncertainty

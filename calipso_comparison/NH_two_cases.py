@@ -11,18 +11,19 @@ plt.rcParams.update({'font.size':18})
 
 
 # CALIOP DATA
-folder = '/projects/NS9600K/shofer/'
-data_folder = 'caliop_olimpia_new/netcdf_format/'
+# Data must be downloaded from https://search.earthdata.nasa.gov/
+homepath = '/home/astridbg/Documents/nird/'
+data_folder = 'observational_data/'
 
 files_ann = ['bulk_slfs_annual.nc', 'ct_slfs_annual.nc']
 files_seasonal = ['bulk_slfs_seasonal.nc', 'ct_slfs_seasonal.nc']
 
-ann_bulk = xr.open_dataset(folder + data_folder + files_ann[0])
-ann_ct = xr.open_dataset(folder + data_folder + files_ann[1])
+ann_bulk = xr.open_dataset(homepath + data_folder + files_ann[0])
+ann_ct = xr.open_dataset(homepath + data_folder + files_ann[1])
 
 # NORESM Data
-folder_n = ['/projects/NS9600K/astridbg/model_data/noresm_rawdata/NF2000climo_f19_tn14_meyers92_20220210/atm/hist/',
-	    '/projects/NS9600K/astridbg/model_data/noresm_rawdata/NF2000climo_f19_tn14_andenes21_20220222/atm/hist/']
+folder_n = [homepath+'model_data/noresm_rawdata/NF2000climo_f19_tn14_meyers92_20220210/atm/hist/',
+	    	homepath+'model_data/noresm_rawdata/NF2000climo_f19_tn14_andenes21_20220222/atm/hist/']
 
 data_n = ['NF2000climo_f19_tn14_meyers92_20220210.cam.h0*.nc',
 	  'NF2000climo_f19_tn14_andenes21_20220222.cam.h0*.nc']
@@ -144,7 +145,7 @@ ax.set_ylabel('Isotherm (C)', fontsize=18)
 fig.subplots_adjust(right=0.6)
 ax.legend(frameon=False, loc="upper left",bbox_to_anchor=(1, 1))
 fig.tight_layout()
-fig.savefig(
-    '/projects/NS9600K/astridbg/INP-Andenes-2021/figures/pdf/SLF_satellite_M92_A21.pdf')
-fig.savefig(
-    '/projects/NS9600K/astridbg/INP-Andenes-2021/figures/png/SLF_satellite_M92_A21.png')
+fig.savefig(homepath+
+    'INP-Andenes-2021-NorESM2/figures/pdf/SLF_satellite_M92_A21.pdf')
+fig.savefig(homepath+
+    'INP-Andenes-2021-NorESM2/figures/png/SLF_satellite_M92_A21.png')

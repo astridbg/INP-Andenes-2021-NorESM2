@@ -10,9 +10,11 @@ plt.rcParams.update({'font.size':20})
 # ------------------------------------------------
 from functions import *
 
-model_rpath="/projects/NS9600K/astridbg/model_data/noresm_postprocessed/"
-obs_rpath="/projects/NS9600K/astridbg/observational_data/radiation/stations/"
-wpath="/projects/NS9600K/astridbg/INP-Andenes-2021-NorESM2/figures/radiation_comparison/groundbased_comparison/"
+homepath="/home/astridbg/Documents/nird/" # Change to suitable path
+
+model_rpath=homepath+"/model_data/noresm_postprocessed/"
+obs_rpath=homepath+"observational_data/radiation/stations/"
+wpath=homepath+"INP-Andenes-2021-NorESM2/figures/"
 
 station_paths = ["ALE_basic_rad_2004-2014/datasets/ALE_basic_rad_2004-2014.csv",
                  "BAR_radiation_1992-01_etseq/datasets/BAR_radiation_1992-2022.csv",
@@ -40,8 +42,7 @@ for i in range(len(station_paths)):
     obs_dfs.append(df)
 
 # Model variables to consider
-#model_vars = ['SWCFS', 'LWCFS', 'FSNS', 'FLNS', 'FSNSC', 'FLNSC', 'CLDTOT', 'FLDS', 'FSDS']
-model_vars = ['SWCFS', 'LWCFS', 'FSNS', 'FLNS', 'FSNSC', 'FLNSC', 'CLDTOT', 'FLDS', 'FSDS', 'TREFHT']
+model_vars = ['SWCFS', 'LWCFS', 'FSNS', 'FLNS', 'FSNSC', 'FLNSC', 'CLDTOT', 'FLDS', 'FSDS']
 A21 = xr.open_mfdataset([model_rpath+var+'_andenes21_20220222_2007-04-15_2010-03-15.nc' for var in model_vars])
 M92 = xr.open_mfdataset([model_rpath+var+'_meyers92_20220210_2007-04-15_2010-03-15.nc' for var in model_vars])
 
