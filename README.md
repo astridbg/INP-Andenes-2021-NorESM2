@@ -1,10 +1,13 @@
 # INP-Andenes-2021-NorESM2
 This repository contains code for processing observational Ice-Nucleating Particle (INP) data from Andenes 2021, and NorESM2 model data with constrained INPs
+
 Authors: Astrid Bragstad Gjelsvik, Robert Oscar David, Tim Carlsen, Franziska Hellmuth, Zachary McGraw, Stefan Hofer and Trude Storelvmo
 
 ### Conda environment:
 Run the command
+
 conda env create --name envname --file=environment_INP-NorESM2.yml
+
 to create the conda environment used in the writing of these scripts. 
 
 ### Datasets used:
