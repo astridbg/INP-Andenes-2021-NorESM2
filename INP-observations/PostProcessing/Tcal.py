@@ -12,10 +12,10 @@ import seaborn as sns
 
 homepath='/home/astridbg/Documents/nird/'
 
-drincopath=homepath+'observational_data/DRINCO_TCal/'
+drincopath=homepath+'observational_data/Temp_Calibration/DRINCO_TCal/'
 foldernames=['20210327_UpperRight','20210327_BottomRight','20210328_BottomLeft','20210328_UpperLeft','20210329_Center']
 cornernames=['Upper right corner','Bottom right corner','Bottom left corner','Upper left corner','Center']
-thermopath=homepath+'Chiller_Temp_Calib/Temp_Calib_'
+thermopath=homepath+'observational_data/Temp_Calibration/Chiller_Temp_Calib/Temp_Calib_'
 filenames=['2021-03-27_13-08-23_bottom_right_and_upper_right','2021-03-27_13-08-23_bottom_right_and_upper_right',
             '2021-03-28_13-44-00_bottom_left_upper_left','2021-03-28_13-44-00_bottom_left_upper_left',
             '2021-03-29_08-54-35']
