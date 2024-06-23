@@ -1,0 +1,21 @@
+! Users should add all user specific namelist changes below in the form of 
+! namelist_var = new_namelist_value 
+
+&slfsimulator_nl
+ slf_isotherms = .true.
+&metdata_nl
+ met_nudge_only_uvps = .true.
+ met_data_file= "/cluster/shared/noresm/inputdata/noresm-only/inputForNudging/z_ABG/ERA_f19_tn14/2010-04-01.nc"
+ met_filenames_list = "/cluster/shared/noresm/inputdata/noresm-only/inputForNudging/z_ABG/ERA_f19_tn14/fileList3.txt"
+ met_rlx_time = 6
+&cam_initfiles_nl
+ bnd_topo = "/cluster/shared/noresm/inputdata/noresm-only/inputForNudging/ERA_f19_tn14/ERA_bnd_topo.nc"
+
+&phys_ctl_nl
+ use_hetfrz_classnuc = .false.
+
+
+&cam_history_nl
+ fincl1 ='NIMEY'
+/
+
