@@ -22,11 +22,11 @@ ann_bulk = xr.open_dataset(homepath + data_folder + files_ann[0])
 ann_ct = xr.open_dataset(homepath + data_folder + files_ann[1])
 
 # NORESM Data
-folder_n = [homepath+'model_data/noresm_rawdata/NF2000climo_f19_tn14_meyers92_20220210/atm/hist/',
-	    	homepath+'model_data/noresm_rawdata/NF2000climo_f19_tn14_andenes21_20220222/atm/hist/']
+folder_n = [homepath+'model_data/noresm_rawdata/NF2000climo_f19_tn14_M92_20240612/atm/hist/',
+	    	homepath+'model_data/noresm_rawdata/NF2000climo_f19_tn14_A21_20240612/atm/hist/']
 
-data_n = ['NF2000climo_f19_tn14_meyers92_20220210.cam.h0*.nc',
-	  'NF2000climo_f19_tn14_andenes21_20220222.cam.h0*.nc']
+data_n = ['NF2000climo_f19_tn14_M92_20240612.cam.h0*.nc',
+	  'NF2000climo_f19_tn14_A21_20240612.cam.h0*.nc']
 
 def preprocess(ds):
     ds_new = ds[['SLFXCLD_ISOTM', 'CT_SLFXCLD_ISOTM',
