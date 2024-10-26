@@ -17,5 +17,9 @@
 
 &cam_history_nl
  fincl1 ='NIMEY'
+
+&cospsimulator_nl
+ docosp         = .true.
+ cosp_amwg      = .true.
 /
 

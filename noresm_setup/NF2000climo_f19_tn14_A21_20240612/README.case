@@ -1,4 +1,44 @@
-2022-02-22 16:10:21: ./create_clone --case /cluster/home/astridbg/NorESM/cases/NF2000climo_f19_tn14_andenes21_20220222 --clone /cluster/home/astridbg/NorESM/cases/NF2000climo_f19_tn14_andenes21_oslo_aero_no_pointer_20220222
+2024-06-12 11:32:40: ./create_clone --case /cluster/home/astridbg/NorESM/cases/NF2000climo_f19_tn14_A21_20240612 --clone /cluster/home/astridbg/NorESM/cases/NF2000climo_f19_tn14_A21_SSTp4K_20240612/
+ ---------------------------------------------------
+2024-06-12 11:32:40: Compset longname is 2000_CAM60%PTAERO_CLM50%SP_CICE%PRES_DOCN%DOM_MOSART_SGLC_SWAV
+ ---------------------------------------------------
+2024-06-12 11:32:40: Compset specification file is /cluster/home/astridbg/NorESM/cime/../components/cam//cime_config/config_compsets.xml
+ ---------------------------------------------------
+2024-06-12 11:32:40: Pes     specification file is /cluster/home/astridbg/NorESM/cime/../components/cam//cime_config/config_pes.xml
+ ---------------------------------------------------
+2024-06-12 11:32:40: INFORMATION ABOUT YOUR GIT VERSION CONTROL SYSTEM :
+ ---------------------------------------------------
+2024-06-12 11:32:40: remote branch:origin	https://github.com/NorESMhub/cime (fetch)
+origin	https://github.com/NorESMhub/cime (push)
+ ---------------------------------------------------
+2024-06-12 11:32:40: git branch:* (HEAD detached at cime5.6.10_cesm2_1_rel_06-Nor_v1.0.4) dbdeebfcd Merge pull request #26 from monsieuralok/cime5.6.10_cesm2_1_rel_06-Nor
+  master                                                  4c26f56e6 [origin/master] Merge pull request #3383 from cacraigucar/add_namelist_double
+ ---------------------------------------------------
+2024-06-12 11:32:40: git log:b'commit dbdeebfcdf059b797ead332693f0105d91c370d8\nMerge: 80ab6fddc 249a5c5be\nAuthor: monsieuralok <alok.gupta@uni.no>\nDate:   Fri Mar 26 10:29:59 2021 +0100\n\n    Merge pull request #26 from monsieuralok/cime5.6.10_cesm2_1_rel_06-Nor\n    \n    fixing write statement for output log'
+ ---------------------------------------------------
+
+    *** original clone README follows ****
+ 2024-06-12 09:52:08: ./create_clone --case /cluster/home/astridbg/NorESM/cases/NF2000climo_f19_tn14_A21_SSTp4K_20240612 --clone /cluster/home/astridbg/NorESM/cases/NF2000climo_f19_tn14_andenes21_20220222
+ ---------------------------------------------------
+2024-06-12 09:52:08: Compset longname is 2000_CAM60%PTAERO_CLM50%SP_CICE%PRES_DOCN%DOM_MOSART_SGLC_SWAV
+ ---------------------------------------------------
+2024-06-12 09:52:08: Compset specification file is /cluster/home/astridbg/NorESM/cime/../components/cam//cime_config/config_compsets.xml
+ ---------------------------------------------------
+2024-06-12 09:52:08: Pes     specification file is /cluster/home/astridbg/NorESM/cime/../components/cam//cime_config/config_pes.xml
+ ---------------------------------------------------
+2024-06-12 09:52:08: INFORMATION ABOUT YOUR GIT VERSION CONTROL SYSTEM :
+ ---------------------------------------------------
+2024-06-12 09:52:08: remote branch:origin	https://github.com/NorESMhub/cime (fetch)
+origin	https://github.com/NorESMhub/cime (push)
+ ---------------------------------------------------
+2024-06-12 09:52:08: git branch:* (HEAD detached at cime5.6.10_cesm2_1_rel_06-Nor_v1.0.4) dbdeebfcd Merge pull request #26 from monsieuralok/cime5.6.10_cesm2_1_rel_06-Nor
+  master                                                  4c26f56e6 [origin/master] Merge pull request #3383 from cacraigucar/add_namelist_double
+ ---------------------------------------------------
+2024-06-12 09:52:08: git log:b'commit dbdeebfcdf059b797ead332693f0105d91c370d8\nMerge: 80ab6fddc 249a5c5be\nAuthor: monsieuralok <alok.gupta@uni.no>\nDate:   Fri Mar 26 10:29:59 2021 +0100\n\n    Merge pull request #26 from monsieuralok/cime5.6.10_cesm2_1_rel_06-Nor\n    \n    fixing write statement for output log'
+ ---------------------------------------------------
+
+    *** original clone README follows ****
+ 2022-02-22 16:10:21: ./create_clone --case /cluster/home/astridbg/NorESM/cases/NF2000climo_f19_tn14_andenes21_20220222 --clone /cluster/home/astridbg/NorESM/cases/NF2000climo_f19_tn14_andenes21_oslo_aero_no_pointer_20220222
  ---------------------------------------------------
 2022-02-22 16:10:21: Compset longname is 2000_CAM60%PTAERO_CLM50%SP_CICE%PRES_DOCN%DOM_MOSART_SGLC_SWAV
  ---------------------------------------------------

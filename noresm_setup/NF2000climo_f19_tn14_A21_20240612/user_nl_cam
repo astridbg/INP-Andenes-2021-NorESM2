@@ -5,7 +5,7 @@
  slf_isotherms = .true.
 &metdata_nl
  met_nudge_only_uvps = .true.
- met_data_file= "/cluster/shared/noresm/inputdata/noresm-only/inputForNudging/z_ABG/ERA_f19_tn14/2010-04-01.nc"
+ met_data_file= "/cluster/shared/noresm/inputdata/noresm-only/inputForNudging/z_ABG/ERA_f19_tn14/2007-01-01.nc"
  met_filenames_list = "/cluster/shared/noresm/inputdata/noresm-only/inputForNudging/z_ABG/ERA_f19_tn14/fileList3.txt"
  met_rlx_time = 6
 &cam_initfiles_nl
@@ -17,5 +17,9 @@
 
 &cam_history_nl
  fincl1 ='NIMEY'
+
+&cospsimulator_nl
+ docosp         = .true.
+ cosp_amwg      = .true.
 /
 
