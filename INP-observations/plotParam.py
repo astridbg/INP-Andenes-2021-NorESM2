@@ -16,6 +16,10 @@ fname1 = "Coriolis_nucleiT_cal.csv"
 fname2 = "Coriolis_nucleiOut_std.csv"
 wpath = homepath+"INP-Andenes-2021-NorESM2/figures/"
 
+# Must download dataset through correspondance with authors of 
+# "The COMBLE Campaign: A Study of Marine Boundary Layer Clouds in Arctic Cold-Air Outbreaks",
+# https://doi.org/10.1175/BAMS-D-21-0044.1
+comble_path = "observational_data/comble_data.csv"
 
 nucleiT = pd.read_csv(path+fname1, index_col=0)
 nucleiOut = pd.read_csv(path+fname2, index_col=0)
@@ -101,7 +105,7 @@ for i in range(outlier_sample+1, nCor):
     alpha -= 0.01
 
 # Read COMBLE data
-comble_data = pd.read_csv(comble_path+"COMBLE_INP_DATA_2.csv")
+comble_data = pd.read_csv(comble_path)
 plt.scatter(comble_data.iloc[:,0], comble_data.iloc[:,1],color='grey',s=10,alpha=0.8,marker="x")
 
 plt.yscale("log")
