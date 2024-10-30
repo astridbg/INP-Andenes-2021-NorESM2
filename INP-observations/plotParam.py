@@ -77,6 +77,21 @@ plt.figure(figsize=(8,6),dpi=300)
 plt.grid(alpha=0.5)
 alpha=1
 
+# Plot uncertainty estimate
+err = 0.9
+
+Tmin = []
+Tmax = []
+for j in range(95):
+    Tmin.append(nucleiT.iloc[j,:].min()-err)
+    Tmax.append(nucleiT.iloc[j,:].nlargest(2).min()+err)
+conc = []
+conc.append(nucleiOut.iloc[0,:].max())
+for j in range(1,94):
+    conc.append(nucleiOut.iloc[j,:].mean())
+conc.append(nucleiOut.iloc[94,:].min())
+plt.fill_betweenx(conc, Tmin, Tmax, color="lightblue", alpha=0.7)
+
 # Plot excluding outlier sample
 for i in range(0, outlier_sample):
     plt.scatter(nucleiT.iloc[:,i],nucleiOut.iloc[:,i], alpha = alpha, color="none", edgecolor="cornflowerblue")
@@ -84,6 +99,10 @@ for i in range(0, outlier_sample):
 for i in range(outlier_sample+1, nCor):
     plt.scatter(nucleiT.iloc[:,i],nucleiOut.iloc[:,i], alpha = alpha, color="none", edgecolor="cornflowerblue")
     alpha -= 0.01
+
+# Read COMBLE data
+comble_data = pd.read_csv(comble_path+"COMBLE_INP_DATA_2.csv")
+plt.scatter(comble_data.iloc[:,0], comble_data.iloc[:,1],color='grey',s=10,alpha=0.8,marker="x")
 
 plt.yscale("log")
 plt.ylim(10**(-4.3),10**(1.8))
@@ -93,20 +112,22 @@ x = np.linspace(-30,-2,100)
 plt.plot(x, np.exp(intercept_ex + slope_ex*x), linewidth=4, color="orange",
         label="\n Andenes 2021, \n exp("+str(round(intercept_ex,3))+" - "+str(round(np.sign(slope_ex)*slope_ex,3))+r"$\times T$)")
 # Plot Meyers
-plt.plot(x, meyers(x), linewidth=3, color="red",label="Meyers et al. (1992)",linestyle="dotted")
+plt.plot(x, meyers(x), linewidth=3, label="Meyers et al. (1992)",linestyle="dotted", color="red")
+# Plot COMBLE data
+plt.scatter(comble_data.iloc[0,0], comble_data.iloc[0,1], s=10,alpha=0.8,marker="x", label='Geerts et al. (2022), Andøy', color="grey")
 # Plot Li and Wieder, with extra one to move legend name
 plt.plot(x, np.exp(intercept_L_W + slope_L_W*x),linewidth=3,linestyle="dashdot",color="#ffffff",
         label=" ")
-plt.plot(x, np.exp(intercept_L_W + slope_L_W*x),linewidth=3,linestyle="dashdot",color="darkblue",
+plt.plot(x, np.exp(intercept_L_W + slope_L_W*x),linewidth=3,linestyle="dashdot", color="darkblue",
         label="Li et al. (2023), Ny-Ålesund")
 # Plot Sze study, winter and summer
-plt.plot(x, 2.111*10**(-4)*np.exp(-0.263*x),linewidth=3,linestyle="dashed",color="tab:green",
+plt.plot(x, 2.111*10**(-4)*np.exp(-0.263*x),linewidth=3,linestyle="dashed", color="springgreen",
         label="Sze et al. (2023), Greenland summer")
-plt.plot(x, 4.711*10**(-7)*np.exp(-0.492*x),linewidth=3,linestyle="dashed",color="darkviolet",
+plt.plot(x, 4.711*10**(-7)*np.exp(-0.492*x),linewidth=3,linestyle="dashed", color="darkviolet",
         label="Sze et al. (2023), Greenland winter")
 plt.plot(x, np.exp(intercept_ex + slope_ex*x), linewidth=4, color="orange")
-plt.xlabel(r"Temperature $T$ [$^{\circ}$C]")
-plt.ylabel(r"INP concentration [#/L$_{std}$]")
+plt.xlabel(r"Temperature $T$, $^{\circ}$C")
+plt.ylabel(r"INP concentration, L$^{-1}$")
 
 # Shrink current axis's height by 10% on the bottom
 ax = plt.gca()

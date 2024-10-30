@@ -127,7 +127,7 @@ df_opc["Total Surface Area"] = np.zeros(len(df_opc.iloc[:,0]))
 
 for time in range(len(df_opc.iloc[:,0])):
     surface_area = 0
-    for bin_size in [1,3,5,7,9]:
+    for bin_size in [3,5,7,9]: # Only include particles >= 500 nm
         size = df_opc.iloc[time,bin_size-1]
         #print("Size: ",size)
         aero_n = df_opc.iloc[time,bin_size]-df_opc.iloc[time,bin_size+2]
@@ -198,7 +198,7 @@ axs[1,0].grid()
 axs[1,0].set_yscale("log")
 #axs[1,0].set_ylim([5,1e+6])
 axs[1,0].xaxis.set_minor_locator(mpl.ticker.NullLocator())
-axs[1,0].set_ylabel("#/L$_{std}$")
+axs[1,0].set_ylabel("L$^{-1}$")
 axs[1,0].set_xlabel(None)
 axs[1,0].set_title("Concentration of particles $\geq 0.5 \mu$m")
 #axs[1,0].legend(loc="upper left",frameon=False)
@@ -210,7 +210,7 @@ axs[1,0].annotate("(b)",fontsize=25,
 
 axs[1,1].scatter(t50,opc_all,color="orange")
 axs[1,1].grid(alpha=0.5)
-axs[1,1].set_ylabel("Particles $\geq 0.5 \mu$m (#/L$_{std}$)")
+axs[1,1].set_ylabel("Particles $\geq 0.5\mu$m (L$^{-1}$)")
 #axs[1,1].set_xlabel("Temperature at 50 % \n frozen fraction ($^{\circ}$C)")
 axs[1,1].set_yscale("log")
 axs[1,1].annotate("R: %.2f, R$^2$: %.2f" %(functions.r(t50,opc_all),functions.rsquared(t50,opc_all)),
@@ -233,7 +233,7 @@ axs[2,0].grid()
 axs[2,0].set_yscale("log")
 #axs[1,0].set_ylim([5,1e+6])
 axs[2,0].xaxis.set_minor_locator(mpl.ticker.NullLocator())
-axs[2,0].set_ylabel("m$^2$/L$_{std}$")
+axs[2,0].set_ylabel("m$^2$L$^{-1}$")
 axs[2,0].set_xlabel(None)
 axs[2,0].set_title("Total Surface Area of Aerosols")
 #axs[1,0].legend(loc="upper left",frameon=False)
@@ -244,7 +244,7 @@ axs[2,0].annotate("(c)",fontsize=25,
 
 axs[2,1].scatter(t50,sfc_all,color="orange")
 axs[2,1].grid(alpha=0.5)
-axs[2,1].set_ylabel("m$^2$/L$_{std}$")
+axs[2,1].set_ylabel("m$^2$L$^{-1}$")
 axs[2,1].set_yscale("log")
 axs[2,1].annotate("R: %.2f, R$^2$: %.2f" %(functions.r(t50,sfc_all),functions.rsquared(t50,sfc_all)),
                 xy=(0, 1), xycoords='axes fraction',
