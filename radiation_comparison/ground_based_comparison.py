@@ -42,170 +42,54 @@ for i in range(len(station_paths)):
     obs_dfs.append(df)
 
 # Model variables to consider
-model_vars = ['SWCFS', 'LWCFS', 'FSNS', 'FLNS', 'FSNSC', 'FLNSC', 'CLDTOT', 'FLDS', 'FSDS']
-A21 = xr.open_mfdataset([model_rpath+var+'_andenes21_20220222_2007-04-15_2010-03-15.nc' for var in model_vars])
-M92 = xr.open_mfdataset([model_rpath+var+'_meyers92_20220210_2007-04-15_2010-03-15.nc' for var in model_vars])
+model_vars = ['FSNS', 'FLNS']
+A21 = xr.open_mfdataset([model_rpath+var+'_A21_20240612_2007-04-15_2010-03-15.nc' for var in model_vars])
+M92 = xr.open_mfdataset([model_rpath+var+'_M92_20240612_2007-04-15_2010-03-15.nc' for var in model_vars])
 
 #-------------------------------------
 # Three subplots in one
+# Monthly averages
 #-------------------------------------
 
-# Net Surface Flux
+A21_month = A21.groupby("time.month").mean("time")
+M92_month = M92.groupby("time.month").mean("time")
 
+obs = obs_dfs[0].loc["2007-04":"2010-03"]
+obs.index = pd.to_datetime(obs.index)
+
+monthsn = np.arange(1,13,1)
+months = ['Jan', 'Feb', 'Mar', 'Apr', 'May','Jun','Jul','Aug','Sep','Oct','Nov', 'Dec']
+
+# Net Surface Flux
+labels = ['(a)', '(b)', '(c)']
 fig, axs = plt.subplots(3, 1, sharex=True, figsize=[13,12])
-for i, df, coord, name in zip(range(3), obs_dfs, station_coords, station_names): 
+for i, df, coord, name, label in zip(range(3), obs_dfs, station_coords, station_names, labels): 
     #Plot observations
-    obs = (df['SWD [W/m**2]'] + df['LWD [W/m**2]'] - df['SWU [W/m**2]'] - df['LWU [W/m**2]']).loc["2007-04":"2010-03"]
+    df = df.loc["2007-04":"2010-03"]
+    df.index = pd.to_datetime(df.index)
+    df = df.groupby(df.index.month).mean()
+    obs = (df['SWD [W/m**2]'] + df['LWD [W/m**2]'] - df['SWU [W/m**2]'] - df['LWU [W/m**2]'])
     obs.plot(label='Observed', color='black', ax=axs[i], linewidth=2)
     #Plot uncertainty
-    axs[i].fill_between(np.arange(36), obs - obs*(0.095), obs + obs*(0.095), color='black', alpha=0.1)
+    axs[i].fill_between(np.arange(1,13,1), obs - obs*(0.095), obs + obs*(0.095), color='black', alpha=0.1)
     #Plot model
-    axs[i].plot(np.arange(36),(A21['FSNS'] - A21['FLNS']).sel(lat=coord[0], lon=coord[1], method='nearest'), label='A21', color='tab:orange', linewidth=2 )
-    axs[i].plot(np.arange(36),(M92['FSNS'] - M92['FLNS']).sel(lat=coord[0], lon=coord[1], method='nearest'), label='M92', color='tab:blue',linewidth=2, linestyle='--' )
-
+    axs[i].plot(np.arange(1,13,1),(A21_month['FSNS'] - A21_month['FLNS']).sel(lat=coord[0], lon=coord[1], method='nearest'), label='A21', color='tab:orange', linewidth=2 )
+    axs[i].plot(np.arange(1,13,1),(M92_month['FSNS'] - M92_month['FLNS']).sel(lat=coord[0], lon=coord[1], method='nearest'), label='M92', color='tab:blue',linewidth=2, linestyle='--' )
     axs[i].set_title(name)
     if i==0:
         axs[i].legend(loc='upper center', bbox_to_anchor=(0.5, 1.45),ncol=3)
+    axs[i].annotate(label,fontsize=20,
+        xy=(0, 1), xycoords='axes fraction',
+        xytext=(-30, 30), textcoords='offset points',
+        ha='left', va='top')
     axs[i].set_ylabel(r'W/m$^2$')
+    axs[i].set_ylim([-55,160])
     axs[i].set_xlabel('')
-    axs[i].set_xticks(np.arange(1, 38, 4))
+    axs[i].set_xticks(np.arange(1, 13, 1),months)
     axs[i].grid(alpha=0.5)
     axs[i].tick_params('x',labelrotation=45)
 
-fig.savefig(wpath+'pdf/stations_all_net.pdf', bbox_inches="tight")
-fig.savefig(wpath+'png/stations_all_net.png', bbox_inches="tight")
+fig.savefig(wpath+'pdf/stations_all_net_monthly.pdf', bbox_inches="tight")
+fig.savefig(wpath+'png/stations_all_net_monthly.png', bbox_inches="tight")
 
 plt.clf()
-
-# Downwelling Longwave Flux at Surface
-
-fig, axs = plt.subplots(3, 1, sharex=True, figsize=[13,12])
-for i, df, coord, name in zip(range(3), obs_dfs, station_coords, station_names): 
-    #Plot observations
-    obs = df['LWD [W/m**2]'].loc["2007-04":"2010-03"]
-    obs.plot(label='Observed', color='black', ax=axs[i], linewidth=2)
-    #Plot uncertainty
-    axs[i].fill_between(np.arange(36), obs - obs*(0.02), obs + obs*(0.02), color='black', alpha=0.1)
-    #Plot model
-    axs[i].plot(np.arange(36),M92['FLDS'].sel(lat=coord[0], lon=coord[1], method='nearest'), label='M92', color='tab:blue',linewidth=2 )
-    axs[i].plot(np.arange(36),A21['FLDS'].sel(lat=coord[0], lon=coord[1], method='nearest'), label='A21', color='tab:orange',linewidth=2 )
-
-    axs[i].set_title(name)
-    if i==0:
-        axs[i].legend()
-    axs[i].set_ylabel(r'W/m$^2$')
-    axs[i].set_xlabel('')
-    axs[i].set_xticks(np.arange(1, 38, 4))
-    axs[i].grid(alpha=0.5)
-axs[2].tick_params(axis='x', labelrotation=45)
-fig.savefig(wpath+'pdf/stations_lwd.pdf', bbox_inches="tight")
-fig.savefig(wpath+'png/stations_lwd.png', bbox_inches="tight")
-
-plt.clf()
-
-# Upwelling Longwave Flux at Surface
-
-fig, axs = plt.subplots(3, 1, sharex=True, figsize=[13,12])
-for i, df, coord, name in zip(range(3), obs_dfs, station_coords, station_names): 
-    #Plot observations
-    obs = df['LWU [W/m**2]'].loc["2007-04":"2010-03"]
-    obs.plot(label='Observed', color='black', ax=axs[i], linewidth=2)
-    #Plot uncertainty
-    axs[i].fill_between(np.arange(36), obs - obs*(0.02), obs + obs*(0.02), color='black', alpha=0.1)
-    #Plot model
-    axs[i].plot(np.arange(36),(M92['FLNS']+M92['FLDS']).sel(lat=coord[0], lon=coord[1], method='nearest'), label='M92', color='tab:blue',linewidth=2 )
-    axs[i].plot(np.arange(36),(A21['FLNS']+A21['FLDS']).sel(lat=coord[0], lon=coord[1], method='nearest'), label='A21', color='tab:orange',linewidth=2 )
-
-    axs[i].set_title(name)
-    if i==0:
-        axs[i].legend()
-    axs[i].set_ylabel(r'W/m$^2$')
-    axs[i].set_xlabel('')
-    axs[i].set_xticks(np.arange(1, 38, 4))
-    axs[i].grid(alpha=0.5)
-axs[2].tick_params(axis='x', labelrotation=45)
-fig.savefig(wpath+'pdf/stations_lwu.pdf', bbox_inches="tight")
-fig.savefig(wpath+'png/stations_lwu.png', bbox_inches="tight")
-
-plt.clf()
-
-# Net Longwave Flux
-
-fig, axs = plt.subplots(3, 1, sharex=True, figsize=[13,12])
-for i, df, coord, name in zip(range(3), obs_dfs, station_coords, station_names): 
-    #Plot observations
-    obs = (df['LWD [W/m**2]'] - df['LWU [W/m**2]']).loc["2007-04":"2010-03"]
-    obs.plot(label='Observed', color='black', ax=axs[i], linewidth=2)
-    #Plot uncertainty
-    axs[i].fill_between(np.arange(36), obs - obs*(0.095), obs + obs*(0.095), color='black', alpha=0.1)
-    #Plot model
-    axs[i].plot(np.arange(36),(-M92['FLNS']).sel(lat=coord[0], lon=coord[1], method='nearest'), label='M92', color='tab:blue',linewidth=2 )
-    axs[i].plot(np.arange(36),(-A21['FLNS']).sel(lat=coord[0], lon=coord[1], method='nearest'), label='A21', color='tab:orange', linewidth=2 )
-
-    axs[i].set_title(name)
-    if i==0:
-        axs[i].legend()
-    axs[i].set_ylabel(r'W/m$^2$')
-    axs[i].set_xlabel('')
-    axs[i].set_xticks(np.arange(1, 38, 4))
-    axs[i].grid(alpha=0.5)
-    axs[i].tick_params('x',labelrotation=45)
-
-fig.savefig(wpath+'pdf/stations_lw_net.pdf', bbox_inches="tight")
-fig.savefig(wpath+'png/stations_lw_net.png', bbox_inches="tight")
-
-plt.clf()
-
-
-# Downwelling Shortwave Flux at Surface
-
-fig, axs = plt.subplots(3, 1, sharex=True, figsize=[13,12])
-for i, df, coord, name in zip(range(3), obs_dfs, station_coords, station_names): 
-    #Plot observations
-    obs = df['SWD [W/m**2]'].loc["2007-04":"2010-03"]
-    obs.plot(label='Observed', color='black', ax=axs[i], linewidth=2)
-    #Plot uncertainty
-    axs[i].fill_between(np.arange(36), obs - obs*(0.02), obs + obs*(0.02), color='black', alpha=0.1)
-    #Plot model
-    axs[i].plot(np.arange(36),M92['FSDS'].sel(lat=coord[0], lon=coord[1], method='nearest'), label='M92', color='tab:blue',linewidth=2 )
-    axs[i].plot(np.arange(36),A21['FSDS'].sel(lat=coord[0], lon=coord[1], method='nearest'), label='A21', color='tab:orange',linewidth=2 )
-
-    axs[i].set_title(name)
-    if i==0:
-        axs[i].legend()
-    axs[i].set_ylabel(r'W/m$^2$')
-    axs[i].set_xticks(np.arange(1, 38, 4))
-    axs[i].set_xlabel('')
-    axs[i].grid(alpha=0.5)
-axs[2].tick_params(axis='x', labelrotation=45)
-fig.savefig(wpath+'pdf/stations_swd.pdf', bbox_inches="tight")
-fig.savefig(wpath+'png/stations_swd.png', bbox_inches="tight")
-
-plt.clf()
-
-# Upwelling Shortwave Flux at Surface
-
-fig, axs = plt.subplots(3, 1, sharex=True, figsize=[13,12])
-for i, df, coord, name in zip(range(3), obs_dfs, station_coords, station_names): 
-    #Plot observations
-    obs = df['SWU [W/m**2]'].loc["2007-04":"2010-03"]
-    obs.plot(label='Observed', color='black', ax=axs[i], linewidth=2)
-    #Plot uncertainty
-    axs[i].fill_between(np.arange(36), obs - obs*(0.02), obs + obs*(0.02), color='black', alpha=0.1)
-    #Plot model
-    axs[i].plot(np.arange(36),-(M92['FSNS']-M92['FSDS']).sel(lat=coord[0], lon=coord[1], method='nearest'), label='M92', color='tab:blue',linewidth=2 )
-    axs[i].plot(np.arange(36),-(A21['FSNS']-A21['FSDS']).sel(lat=coord[0], lon=coord[1], method='nearest'), label='A21', color='tab:orange',linewidth=2 )
-
-    axs[i].set_title(name)
-    if i==0:
-        axs[i].legend()
-    axs[i].set_ylabel(r'W/m$^2$')
-    axs[i].set_xlabel('')
-    axs[i].set_xticks(np.arange(1, 38, 4))
-    axs[i].grid(alpha=0.5)
-axs[2].tick_params(axis='x', labelrotation=45)
-fig.savefig(wpath+'pdf/stations_swu.pdf', bbox_inches="tight")
-fig.savefig(wpath+'png/stations_swu.png', bbox_inches="tight")
-
-plt.clf()
-
