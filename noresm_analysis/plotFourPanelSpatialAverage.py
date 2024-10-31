@@ -18,9 +18,9 @@ rpath=homepath+"/model_data/noresm_postprocessed/"
 wpath=homepath+"INP-Andenes-2021-NorESM2/figures/"
 
 # Default cases----------------
-case1 = "meyers92_20220210"; case1nm = "M92"
+case1 = "M92_202406120"; case1nm = "M92"
 # Modified cases---------------
-case2 = "andenes21_20220222"; case2nm = "A21"
+case2 = "A21_20240612"; case2nm = "A21"
 #------------------------------	
 date1 = "2007-04-15_2010-03-15"
 date2 = "2007-04-15_2010-03-15"

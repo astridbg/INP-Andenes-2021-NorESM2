@@ -5,12 +5,13 @@ import glob
 import functions
 
 homepath="/home/astridbg/Documents/nird/"
+homepath="/projects/NS9600K/astridbg/"
 
 rpath=homepath+"model_data/noresm_output/"
 wpath=homepath+"model_data/noresm_postprocessed/"
 
-case = "meyers92_20220210"
-#case = "andenes21_20220222"
+#case = "M92_20240612"
+case = "A21_20240612"
 
 casefolder="NF2000climo_f19_tn14_"+case
 
@@ -42,8 +43,9 @@ print("Postprocessing completed")
 date = "2007-04-15_2010-03-15"
 
 
-# For cases meyers92 and andenes21
-variables = ["OCNFRAC","FREQI","NUMICE","LWCFS","SWCFS","NETCFS","CLDTOT","TGCLDIWP","TGCLDLWP","TREFHT","FSNT","FSNTC","FSNTOA","FSNTOAC","FSUTOA", "FLNT", "FLNTC", "FLUT", "FLUTC"]
+# For cases M92 and A21
+variables = ["OCNFRAC","FREQI","NUMICE","LWCFS","SWCFS","NETCFS","CLOUD","CLDTOT", "TGCLDIWP","TGCLDLWP","TGCLDTWP","TREFHT", "PREC",
+             "FSNT","FSNTC","FLNT", "FLNTC", "FSNS", "FLNS", "CLDTOT_CAL", "CLDTOT_CAL_ICE", "CLDTOT_CAL_LIQ", "CLDTOT_CAL_UN"]
 
 for var in variables:
     print("Started writing variable:")
@@ -68,6 +70,10 @@ for var in variables:
     if var == "IWC":
         ds[var].values = ds[var].values*1e+3 # Change unit to grams per cubic meter
         ds[var].attrs["units"] = "g/m$^3$"
+    
+    if var == "PRECC" or var == "PRECL":
+        ds[var].values = ds[var].values*1e+3*60*60*24*30 # Change unit to millimeter per month
+        ds[var].attrs["units"] = "mm/month"
 
     # Change to more meaningful name
 
@@ -83,6 +89,13 @@ for var in variables:
         ds[var].attrs["long_name"] = "In-cloud liquid water mixing ratio"
 
     # Make combined data variables
+    if var == "TGCLDTWP":
+        ds = ds.assign(TGCLDTWP=ds["TGCLDIWP"]+ds["TGCLDLWP"])
+        if "TGCLDIWP" or "TGCLDLWP" not in variables:
+            ds[var].values = ds[var].values*1e+3 # Change unit to grams per squared meter
+            ds[var].attrs["units"] = "g/m$^2$"
+        ds[var].attrs["long_name"] = "Total Grid-box Cloud Total Water Path"
+
     if var == "LWCFS":
         ds = ds.assign(LWCFS=ds["FLNSC"]-ds["FLNS"])
         ds[var].attrs["units"] = "W/m$^2$"
@@ -141,7 +154,15 @@ for var in variables:
         ds = ds.assign(CLDLWEMS=1-np.exp(-0.158*ds["TGCLDLWP"]*1e+3))
         ds[var].attrs["units"] = "Emissivity"
         ds[var].attrs["long_name"] = "Cloud Longwave Emissivity"
-
+    
+    if var == "PREC":
+        print(ds["PRECL"].attrs["units"])
+        print(ds["PRECC"].attrs["units"])
+        print("NB! Changing units to mm/month!")
+        ds = ds.assign(PREC=(ds["PRECL"]+ds["PRECL"])*1e+3*60*60*24*30) # Sum precipitation rates
+        ds[var].attrs["units"] = "mm/month" # Change unit to millimeter per month
+        ds[var].attrs["long_name"] = "Total Precipitation"
+    
     print(ds[var].attrs["long_name"])
     print("Units: ", ds[var].attrs["units"])
 	
