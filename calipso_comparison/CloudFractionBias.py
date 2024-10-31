@@ -97,8 +97,8 @@ plt.gca().set_position([box.x0, box.y0, box.width * 0.8, box.height])
 # Put a legend to the right of the current axis
 plt.legend(loc='center left', bbox_to_anchor=(1, 0.5))
 
-plt.savefig(wpath+'pdf/'+model_var+'cc_phase_bias.pdf', bbox_inches="tight")
-plt.savefig(wpath+'png/'+model_var+'cc_phase_bias.png', bbox_inches="tight")
+plt.savefig(wpath+'pdf/'+model_var+'_phase_bias.pdf', bbox_inches="tight")
+plt.savefig(wpath+'png/'+model_var+'_phase_bias.png', bbox_inches="tight")
 plt.clf()
 
 quit()
