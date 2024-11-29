@@ -12,15 +12,13 @@ plt.rcParams.update({'font.size':16})
 import cartopy.crs as ccrs
 import functions
 
-homepath = "/home/astridbg/Documents/nird/" # Change to suitable path
-
-rpath=homepath+"/model_data/noresm_postprocessed/"
-wpath=homepath+"INP-Andenes-2021-NorESM2/figures/"
+rpath="../../model_data/noresm_postprocessed/"
+wpath="../figures/"
 
 # Default cases----------------
-case1 = "M92_202406120"; case1nm = "M92"
+case1 = "M92_20241122"; case1nm = "M92"
 # Modified cases---------------
-case2 = "A21_20240612"; case2nm = "A21"
+case2 = "A21_20241125"; case2nm = "A21"
 #------------------------------	
 date1 = "2007-04-15_2010-03-15"
 date2 = "2007-04-15_2010-03-15"
@@ -63,22 +61,17 @@ for var, extent in zip(variables, colorbar_extents):
     lev_extent = round(max(abs(np.min(diff.sel(lat=slice(66.5,90)).values)), 
                             abs(np.max(diff.sel(lat=slice(66.5,90)).values))),2)
     print("Maximum absolute change: ", lev_extent, " Colorbar extent: ", extent)
-    #if lev_extent < 0.004:
-    #    lev_extent = 0.004
-    #lev_extent = 10
     levels = np.linspace(-extent,extent,25)
 
 
     fig = plt.figure(1, figsize=[9,10],dpi=300)
     title = ds1[var].long_name+"\n"+case2nm+r"$-$"+case1nm
-    #fig.suptitle(title, fontsize=22)
 	
     # Set the projection to use for plotting
     ax1 = plt.subplot(2, 2, 1, projection=ccrs.Orthographic(0, 90))
     ax2 = plt.subplot(2, 2, 2, projection=ccrs.Orthographic(0, 90))
     ax3 = plt.subplot(2, 2, 3, projection=ccrs.Orthographic(0, 90))
     ax4 = plt.subplot(2, 2, 4, projection=ccrs.Orthographic(0, 90))
-    #plt.subplots_adjust(top=0.85)
 
     for ax,season,label in zip([ax1, ax2, ax3, ax4], ["DJF", "MAM","JJA","SON"], ["(a)", "(b)", "(c)", "(d)"]):
     	
@@ -109,8 +102,6 @@ for var, extent in zip(variables, colorbar_extents):
     elif 0.004 <= lev_extent < 0.04:
         cbar.ax.xaxis.set_major_formatter(StrMethodFormatter('{x:,.3f}')) # Three decimal places
     
-    #plt.savefig(wpath+"pdf/"+var+"_"+case1+"_"+case2+"eqbar.pdf", bbox_inches='tight')
-   # plt.savefig(wpath+"png/"+var+"_"+case1+"_"+case2+"eqbar.png", bbox_inches='tight')
     plt.savefig(wpath+"pdf/"+var+"_"+case1+"_"+case2+".pdf", bbox_inches='tight')
     plt.savefig(wpath+"png/"+var+"_"+case1+"_"+case2+".png", bbox_inches='tight')
 

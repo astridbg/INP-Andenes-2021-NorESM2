@@ -4,17 +4,15 @@ import numpy as np
 import glob
 import functions
 
-homepath="/home/astridbg/Documents/nird/"
-homepath="/projects/NS9600K/astridbg/"
 
-rpath=homepath+"model_data/noresm_output/"
-wpath=homepath+"model_data/noresm_postprocessed/"
+rpath="../../model_data/noresm_output/"
+wpath="../../model_data/noresm_postprocessed/"
 
 
 # Choose which case to postprocess
 
-#case = "M92_20241122" # Baseline case with Meyers' parameterisation
-case = "A21_20241125" # Andenes 2021 INP parameterisation
+case = "M92_20241122" # Baseline case with Meyers' parameterisation
+#case = "A21_20241125" # Andenes 2021 INP parameterisation
 
 casefolder="NF2000climo_f19_tn14_"+case
 

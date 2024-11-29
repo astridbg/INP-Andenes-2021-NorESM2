@@ -5,22 +5,20 @@ import matplotlib.pyplot as plt
 from matplotlib.ticker import StrMethodFormatter
 from cmcrameri import cm
 # Set font style to match latex document----------
-#plt.rcParams['mathtext.fontset'] = 'stix'
+plt.rcParams['mathtext.fontset'] = 'stix'
 plt.rcParams['font.family'] = 'STIXGeneral'
 plt.rcParams.update({'font.size':18})
 # ------------------------------------------------
 import datetime
 from functions import *
 
-homepath = "/home/astridbg/Documents/nird/" # Change to suitable path
+rpath="../../model_data/noresm_postprocessed/"
+wpath="../figures/"
 
-rpath=homepath+"/model_data/noresm_postprocessed/"
-wpath=homepath+"INP-Andenes-2021-NorESM2/figures/"
-
-# Default cases----------------
-case1 = "M92_202406120"; case1nm = "M92"
-# Modified cases---------------
-case2 = "A21_20240612"; case2nm = "A21"
+# Default case----------------
+case1 = "M92_20241122"; case1nm = "M92"
+# Modified case---------------
+case2 = "A21_20241125"; case2nm = "A21"
 #------------------------------	
 date1 = "2007-04-15_2010-03-15"
 date2 = "2007-04-15_2010-03-15"
@@ -90,7 +88,6 @@ for pair in variables:
                                 lat=slice(npole[1][0],npole[1][1])))
     
     fig,axs = plt.subplots(ncols=2,nrows=2, gridspec_kw={'width_ratios': [3, 1]}, figsize=[13,7],dpi=300,constrained_layout=True)
-    #fig.suptitle(ds1[var].long_name+", "+case2nm+r"$-$"+case1nm, fontsize=26)
 
     left_label = ["(a)", "(c)"]
     right_label = ["(b)", "(d)"]
