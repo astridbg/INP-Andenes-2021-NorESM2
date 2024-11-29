@@ -10,11 +10,11 @@ plt.rcParams.update({'font.size':20})
 # ------------------------------------------------
 from functions import *
 
-homepath="/home/astridbg/Documents/nird/" # Change to suitable path
 
-model_rpath=homepath+"/model_data/noresm_postprocessed/"
-obs_rpath=homepath+"observational_data/radiation/stations/"
-wpath=homepath+"INP-Andenes-2021-NorESM2/figures/"
+model_rpath="../../model_data/noresm_postprocessed/"
+obs_rpath="../../observational_data/radiation/stations/" # Data must be downloaded from https://pangaea.de
+obs_rpath="../../data/observations/radiation/stations/" # Data must be downloaded from https://pangaea.de
+wpath="../figures/"
 
 station_paths = ["ALE_basic_rad_2004-2014/datasets/ALE_basic_rad_2004-2014.csv",
                  "BAR_radiation_1992-01_etseq/datasets/BAR_radiation_1992-2022.csv",
@@ -43,8 +43,8 @@ for i in range(len(station_paths)):
 
 # Model variables to consider
 model_vars = ['FSNS', 'FLNS']
-A21 = xr.open_mfdataset([model_rpath+var+'_A21_20240612_2007-04-15_2010-03-15.nc' for var in model_vars])
-M92 = xr.open_mfdataset([model_rpath+var+'_M92_20240612_2007-04-15_2010-03-15.nc' for var in model_vars])
+A21 = xr.open_mfdataset([model_rpath+var+'_A21_20241125_2007-04-15_2010-03-15.nc' for var in model_vars])
+M92 = xr.open_mfdataset([model_rpath+var+'_M92_20241122_2007-04-15_2010-03-15.nc' for var in model_vars])
 
 #-------------------------------------
 # Three subplots in one

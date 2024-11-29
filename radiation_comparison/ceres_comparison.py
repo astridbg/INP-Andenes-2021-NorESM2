@@ -10,14 +10,14 @@ plt.rcParams.update({'font.size':20})
 # ------------------------------------------------
 from functions import *
 
-homepath="/home/astridbg/Documents/nird/" # Change to suitable path
 
 # Paths to data
-ceres_path = "/projects/NS9600K/astridbg/observational_data/radiation/CERES_EBAF_Ed4.2_Subset_200704-201003.nc" # Data must be downloaded from https://search.earthdata.nasa.gov/
-noresm_path = homepath+"model_data/noresm_postprocessed/"
+# ceres_path = "../../observational_data/radiation/CERES_EBAF_Ed4.2_Subset_200704-201003.nc" # Data must be downloaded from https://search.earthdata.nasa.gov/
+ceres_path = "../../data/observations/radiation/CERES_EBAF_Ed4.2_Subset_200704-201003.nc" # Data must be downloaded from https://search.earthdata.nasa.gov/
+noresm_path = "../../model_data/noresm_postprocessed/"
 
 # Paths to figures
-fig_path = homepath+"INP-Andenes-2021-NorESM2/figures/"
+fig_path = "../figures/"
 
 #-------------------------------------
 # CERES Uncertainty
@@ -43,9 +43,8 @@ ceres_data = xr.open_dataset(ceres_path)
 
 # Model variables to consider
 model_vars = ['FLNT', 'FLNTC', 'FSNT', 'FSNTC']
-A21 = xr.open_mfdataset([noresm_path+var+'_A21_20240612_2007-04-15_2010-03-15.nc' for var in model_vars])
-M92 = xr.open_mfdataset([noresm_path+var+'_M92_20240612_2007-04-15_2010-03-15.nc' for var in model_vars])
-
+A21 = xr.open_mfdataset([noresm_path+var+'_A21_20241125_2007-04-15_2010-03-15.nc' for var in model_vars])
+M92 = xr.open_mfdataset([noresm_path+var+'_M92_20241122_2007-04-15_2010-03-15.nc' for var in model_vars])
 
 #-------------------------------------
 # Plot TOA fluxes

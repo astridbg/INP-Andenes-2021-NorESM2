@@ -12,21 +12,21 @@ plt.rcParams.update({'font.size':18})
 
 # CALIOP DATA
 # Data must be downloaded from https://search.earthdata.nasa.gov/
-homepath = '/home/astridbg/Documents/nird/'
-data_folder = 'observational_data/'
+folder = '/projects/NS9600K/shofer/'
+data_folder = 'caliop_olimpia_new/netcdf_format/'
 
 files_ann = ['bulk_slfs_annual.nc', 'ct_slfs_annual.nc']
 files_seasonal = ['bulk_slfs_seasonal.nc', 'ct_slfs_seasonal.nc']
 
-ann_bulk = xr.open_dataset(homepath + data_folder + files_ann[0])
-ann_ct = xr.open_dataset(homepath + data_folder + files_ann[1])
+ann_bulk = xr.open_dataset(folder + data_folder + files_ann[0])
+ann_ct = xr.open_dataset(folder + data_folder + files_ann[1])
 
 # NORESM Data
-folder_n = [homepath+'model_data/noresm_rawdata/NF2000climo_f19_tn14_M92_20240612/atm/hist/',
-	    	homepath+'model_data/noresm_rawdata/NF2000climo_f19_tn14_A21_20240612/atm/hist/']
+folder_n = ['../../model_data/noresm_output/NF2000climo_f19_tn14_M92_20241122/atm/hist/',
+	    	'../../model_data/noresm_output/NF2000climo_f19_tn14_A21_20241125/atm/hist/']
 
-data_n = ['NF2000climo_f19_tn14_M92_20240612.cam.h0*.nc',
-	  'NF2000climo_f19_tn14_A21_20240612.cam.h0*.nc']
+data_n = ['NF2000climo_f19_tn14_M92_20241122.cam.h0*.nc',
+	  'NF2000climo_f19_tn14_A21_20241125.cam.h0*.nc']
 
 def preprocess(ds):
     ds_new = ds[['SLFXCLD_ISOTM', 'CT_SLFXCLD_ISOTM',
@@ -109,7 +109,7 @@ et_n_ct, std_n_ct  = arctic_slf_weighted(ann_ct, s_bnd=66.6, n_bnd=82)
 plt.close('all')
 fig, ax = plt.subplots(nrows=1, ncols=1, figsize=(10, 6),dpi=300)
 
-# Cases CAM5 and Andenes
+# Cases M92 and A21
 case_one_slf = arctic_slf_noresm(list_cases[0], s_bnd=66.6, n_bnd=82)
 case_two_slf = arctic_slf_noresm(list_cases[1], s_bnd=66.6, n_bnd=82)
 # =============================================================
@@ -145,7 +145,5 @@ ax.set_ylabel('Isotherm (C)', fontsize=18)
 fig.subplots_adjust(right=0.6)
 ax.legend(frameon=False, loc="upper left",bbox_to_anchor=(1, 1))
 fig.tight_layout()
-fig.savefig(homepath+
-    'INP-Andenes-2021-NorESM2/figures/pdf/SLF_satellite_M92_A21.pdf')
-fig.savefig(homepath+
-    'INP-Andenes-2021-NorESM2/figures/png/SLF_satellite_M92_A21.png')
+fig.savefig('../figures/pdf/SLF_satellite_M92_A21.pdf')
+fig.savefig('../figures/png/SLF_satellite_M92_A21.png')

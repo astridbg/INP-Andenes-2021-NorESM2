@@ -12,14 +12,12 @@ from functions import *
 
 # CALIPSO-GOCCP DATA
 # Data must be downloaded from https://climserv.ipsl.polytechnique.fr/cfmip-obs/Calipso_goccp.html 
-homepath = "/home/astridbg/Documents/nird/" # Change to suitable path
-homepath = "/projects/NS9600K/astridbg/"
 
-calipso_path = homepath + "observational_data/CALIPSO-GOCCP/"
-calipso_path = homepath + "data/observations/CALIPSO-GOCCP/"
-model_path=homepath+"model_data/noresm_postprocessed/"
+calipso_path = "../../observational_data/CALIPSO-GOCCP/"
+calipso_path = "../../data/observations/CALIPSO-GOCCP/"
+model_path = "../../model_data/noresm_postprocessed/"
 
-wpath=homepath+"INP-Andenes-2021-NorESM2/figures/"
+wpath = "../figures/"
 
 #-------------------------------------
 # Read data
@@ -32,8 +30,8 @@ calipso_ds = xr.open_mfdataset(filenames, compat='override',coords='all')
 # NorESM model data
 model_var = 'CLDTOT'
 model_vars = [model_var+'_CAL',model_var+'_CAL_ICE',model_var+'_CAL_LIQ', model_var+'_CAL_UN']
-A21 = xr.open_mfdataset([model_path+var+'_A21_20240612_2007-04-15_2010-03-15.nc' for var in model_vars])
-M92 = xr.open_mfdataset([model_path+var+'_M92_20240612_2007-04-15_2010-03-15.nc' for var in model_vars])
+A21 = xr.open_mfdataset([model_path+var+'_A21_20241125_2007-04-15_2010-03-15.nc' for var in model_vars])
+M92 = xr.open_mfdataset([model_path+var+'_M92_20241122_2007-04-15_2010-03-15.nc' for var in model_vars])
 
 #-------------------------------------
 # Compute Arctic average
@@ -74,8 +72,8 @@ plt.fill_between(CALIOP_Aavg.month[7:], (A21_Aavg[model_var+'_CAL'].values*0.01-
 
 # Get legend markers
 plt.fill_between([1,2],0,0, alpha=0.3,label="Total cloud",color='black')
-plt.plot(1,0,linestyle='--',color='grey',label='Ice Cloud')
-plt.plot(1,0,label='Liquid Cloud',color='grey')
+plt.plot(1,0,linestyle='--',color='grey',label='Ice cloud')
+plt.plot(1,0,label='Liquid cloud',color='grey')
 
 plt.plot(CALIOP_Aavg.month, A21_Aavg[model_var+'_CAL_LIQ'].values*0.01-CALIOP_LIQ_Aavg.values, color='tab:orange')
 plt.plot(CALIOP_Aavg.month, M92_Aavg[model_var+'_CAL_LIQ'].values*0.01-CALIOP_LIQ_Aavg.values, color='tab:blue')
@@ -101,4 +99,3 @@ plt.savefig(wpath+'pdf/'+model_var+'_phase_bias.pdf', bbox_inches="tight")
 plt.savefig(wpath+'png/'+model_var+'_phase_bias.png', bbox_inches="tight")
 plt.clf()
 
-quit()
