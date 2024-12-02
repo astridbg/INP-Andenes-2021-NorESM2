@@ -61,8 +61,8 @@ for var in variables:
         months.append(datetime_object.strftime("%b"))
 	
     # Get spatial average over Arctic
-    ds1_arct = computeWeightedMean(ds1m[var].sel(lat=slice(60,90)))
-    ds2_arct = computeWeightedMean(ds2m[var].sel(lat=slice(60,90)))
+    ds1_arct = computeWeightedMean(ds1m[var].sel(lat=slice(66.5,90)))
+    ds2_arct = computeWeightedMean(ds2m[var].sel(lat=slice(66.5,90)))
     print("Arctic")
     print("Difference",(ds2_arct-ds1_arct).mean("month").values)
     print("Case 1",ds1_arct.mean("month").values)
@@ -125,7 +125,7 @@ for var in variables:
         bplot=ax2.boxplot(change_all,patch_artist=True,medianprops={"color":"black"})
         ax2.set_ylabel(r"$\Delta$"+ds1[var].units)
     
-    elif var == "TGCLDLWP" or var == "CLDLWEM":
+    elif var == "TGCLDLWP" or var == "TGCLDIWP":
 
         # Get average relative change
         # Shrink y axis due to extreme values
@@ -141,6 +141,7 @@ for var in variables:
         bplot=ax2.boxplot(rel_all,patch_artist=True,medianprops={"color":"black"},showfliers=False)
         ax2.set_ylabel("% change")
         ax2.set_yscale("log")
+        print(rel_arct)
         print("Arctic annual average relative change (%): ", np.mean(rel_arct))
 
 
