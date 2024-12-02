@@ -13,7 +13,7 @@ mpl.rcParams['mathtext.fontset'] = 'stix'
 mpl.rcParams['font.family'] = 'STIXGeneral'
 plt.rcParams.update({'font.size':20})
 
-path_cor = "../../observational_data/"
+rpath = "../../observational_data/"
 wpath = "../figures/"
 
 # -----------------------------
@@ -22,12 +22,12 @@ wpath = "../figures/"
 
 # Read in Coriolis INP freezing temperatures
 
-nucleiT = pd.read_csv(path_cor+"Coriolis_nucleiT_cal.csv",index_col=0)
+nucleiT = pd.read_csv(rpath+"Coriolis_nucleiT_cal.csv",index_col=0)
 nucleiT = nucleiT.drop(columns=['10']) # Remove outlier measurement
 
 # Read in Coriolis log file
 
-df_cor = pd.read_csv(path_islas+"coriolis_log_all.csv", skiprows = 1)
+df_cor = pd.read_csv(rpath+"coriolis_log_all.csv", skiprows = 1)
 df_cor = df_cor.drop(index=9)
 
 t_start = pd.DataFrame(df_cor['Date'] + ' ' + df_cor['Start (UTC)'], columns = ['t_start'])
@@ -54,7 +54,7 @@ t50 = df_frzT.iloc[:,index_50]
 # -----------------------------
 
 # Read OPC data
-ds_opc = xr.open_dataset(path_islas+"opc_islas2021_final.nc")
+ds_opc = xr.open_dataset(rpath+"opc_islas2021_final.nc")
 
 # Calculate aerosol surface area
 
