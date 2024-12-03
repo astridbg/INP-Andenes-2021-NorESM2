@@ -80,6 +80,6 @@ cp -r $sourcemod_repo/src.cam/* SourceMods/src.cam/.
 
 echo "SOURCEMODS UPDATED"
 
-#./case.build
+./case.build
 
-#./case.submit
+./case.submit
