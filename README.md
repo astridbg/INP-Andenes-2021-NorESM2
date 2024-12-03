@@ -15,7 +15,7 @@ to create the conda environment used for processing these scripts.
 ### Datasets used:
 The data sets produced for this study, both INP measurements and modelling results, can be found at https:
 //doi.org/10.5281/zenodo.11617774. The CALIOP L2 data used to derive SLF metrics and the CERES EBAF data can be downloaded freely
-at https://search.earthdata.nasa.gov/. The derived SLF metrics can be found at 10.5281/zenodo.8289057. 
+at https://search.earthdata.nasa.gov/. The derived SLF metrics can be found at 10.5281/zenodo.8289057. The CALIPSO-GOCCP data product can be downloaded from https://climserv.ipsl.polytechnique.fr/cfmip-obs/Calipso_goccp.html
 The surface radiation flux can be downloaded freely at https://www.pangaea.de/. The colormap from Crameri
 et al. (2020) was used when preparing the figures. All data not produced in this study, but used for producing the scripts, can also be provided by the authors upon request.
 
