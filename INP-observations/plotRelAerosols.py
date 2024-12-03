@@ -21,28 +21,10 @@ wpath = "../figures/"
 # -----------------------------
 
 # Read in Coriolis INP freezing temperatures
-
-nucleiT = pd.read_csv(rpath+"Coriolis_nucleiT_cal.csv",index_col=0)
-nucleiT = nucleiT.drop(columns=['10']) # Remove outlier measurement
-
-# Read in Coriolis log file
-
-df_cor = pd.read_csv(rpath+"coriolis_log_all.csv", skiprows = 1)
-df_cor = df_cor.drop(index=9)
-
-t_start = pd.DataFrame(df_cor['Date'] + ' ' + df_cor['Start (UTC)'], columns = ['t_start'])
-t_start = t_start.set_index('t_start')
-t_start.index = pd.to_datetime(t_start.index, format = '%d-%m-%Y %H:%M')
-
-# Set time index to middle to sampling period
-
-t_diff = datetime.timedelta(minutes=20) # Each INP measurement takes 40 min
-t_middle = t_start.index + t_diff
-
-df_frzT = nucleiT.transpose()
-
-df_frzT["mean_time"] = t_middle
-df_frzT = df_frzT.set_index("mean_time")
+df_frzT = xr.open_dataset(rpath+'nucleiT_data_ISLAS21.nc')
+df_frzT = df_frzT.to_dataframe()
+df_frzT = df_frzT.reset_index()
+df_frzT = df_frzT.pivot(index='time', columns='aliquot_number', values='freezing_temperatures')
 
 # Get temperature at which fifty percent for all wells had frozen
 
@@ -54,7 +36,7 @@ t50 = df_frzT.iloc[:,index_50]
 # -----------------------------
 
 # Read OPC data
-ds_opc = xr.open_dataset(rpath+"opc_islas2021_final.nc")
+ds_opc = xr.open_dataset(rpath+"OPC_data_ISLAS2021.nc")
 
 # Calculate aerosol surface area
 
@@ -100,10 +82,13 @@ opc_all = []
 df_opc = ds_opc.particle_number_concentration.isel(particle_size_bin=1).to_dataframe()
 df_opc['total_surface_geq_500nm'] = total_surface_area_geq_500nm
 
+# Find start time for INP measurements
+t_diff = datetime.timedelta(minutes=20) # Each INP measurement takes 40 min
+t_start = df_frzT.index - t_diff
 # For full-length datasets
 i = 1
-for cor in t_start.index:
 
+for cor in t_start:
     print(cor.date(),", Coriolis sample: ",i)
 
     time_opc = df_opc.loc[str(cor.date())].index.hour
@@ -178,7 +163,7 @@ axs[2,0].set_yscale("log")
 axs[2,0].xaxis.set_minor_locator(mpl.ticker.NullLocator())
 axs[2,0].set_ylabel("$\mu$m$^2$L$^{-1}$")
 axs[2,0].set_xlabel(None)
-axs[2,0].set_title("Total Surface Area of Aerosols")
+axs[2,0].set_title("Total Surface Area of Aerosols $\geq 0.5\mu$m")
 axs[2,0].annotate("(c)",fontsize=25,
                 xy=(0, 1), xycoords='axes fraction',
                 xytext=(-30, 20), textcoords='offset points',
