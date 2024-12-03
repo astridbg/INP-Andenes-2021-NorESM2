@@ -340,7 +340,7 @@ subroutine nucleati(  &
    if(tc.lt.0._r8 .and. tc.gt.-37._r8 .and. qc.gt.1.e-12_r8) then  
       if (present(rlat)) then
          if (rlat*180._r8/3.14159_r8.gt.+66.5_r8) then ! adjustment for Arctic clouds
-            nimey=1.e-3_r8*exp(-0.313_r8*tc - 9.561_r8) ! astridbg
+            nimey=1.e-3_r8*exp(-0.342_r8*tc - 10.105_r8) ! astridbg
          else
             esl = svp_water(tair)     ! over water in mixed clouds
             esi = svp_ice(tair)     ! over ice
